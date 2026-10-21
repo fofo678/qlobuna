@@ -1,0 +1,558 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>قلوبنا تتّسع — اليوم العالمي للاحتضان</title>
+
+  <style>
+    :root {
+      --ink: #34304b;
+      --muted: #746d88;
+      --paper: #fffdf9;
+      --card: #ffffff;
+      --line: #eee5f4;
+      --pink: #f4b8c8;
+      --purple: #8d79bd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    #app {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 8%, #ffe9ef 0, transparent 22%),
+        radial-gradient(circle at 92% 22%, #e7e2ff 0, transparent 25%),
+        var(--paper);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 22px clamp(18px, 5vw, 72px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand { font-weight: 800; font-size: 1.05rem; }
+    .brand span { color: var(--purple); }
+
+    .pill {
+      border: 1px solid var(--line);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: .82rem;
+      color: var(--muted);
+      background: var(--card);
+    }
+
+    .hero {
+      max-width: 1050px;
+      margin: 16px auto 0;
+      padding: 28px 22px 38px;
+      text-align: center;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: #f7eefa;
+      color: #70568c;
+      font-size: .88rem;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.25rem, 6vw, 4.7rem);
+      line-height: 1.25;
+      margin: 22px 0 14px;
+    }
+
+    .accent { color: var(--purple); }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 2;
+    }
+
+    .decor {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: .8;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .d1 { left: 8%; top: 38px; }
+    .d2 { right: 8%; top: 90px; animation-delay: 1s; }
+    .d3 { left: 15%; bottom: 4px; animation-delay: 2s; }
+
+    @keyframes float {
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 22px 64px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(270px, .82fr) minmax(0, 1.3fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 25px;
+      box-shadow: 0 14px 40px #5b42600d;
+    }
+
+    .panel h2 { font-size: 1.25rem; margin: 0 0 8px; }
+
+    .sub {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 0 0 20px;
+    }
+
+    .field {
+      display: block;
+      font-weight: bold;
+      font-size: .9rem;
+      margin: 15px 0 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px #8d79bd25;
+    }
+
+    textarea { resize: vertical; min-height: 130px; line-height: 1.8; }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 17px;
+      font-weight: bold;
+      transition: transform .15s, opacity .15s;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: .6; cursor: wait; }
+
+    .primary {
+      background: var(--purple);
+      color: white;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .tiny {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 12px 0 0;
+    }
+
+    .feed-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 17px;
+    }
+
+    .count {
+      background: #f6edf9;
+      color: #72548d;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    .feed { display: grid; gap: 13px; }
+
+    .entry {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .entry::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--stripe, var(--pink));
+    }
+
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .entry-name { font-weight: 800; font-size: 1rem; }
+
+    .entry-time {
+      font-size: .74rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .entry-message {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.95;
+      margin: 12px 0 0;
+      font-size: .98rem;
+    }
+
+    .heart { color: #d77d9b; }
+
+    .empty {
+      text-align: center;
+      padding: 35px 15px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .empty .emoji { font-size: 2rem; display: block; }
+
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .secondary {
+      background: #f5f0f8;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 9px 12px;
+      font-size: .82rem;
+    }
+
+    .notice {
+      margin-top: 22px;
+      border-radius: 18px;
+      padding: 15px 17px;
+      background: #fff5dc;
+      color: #6e5830;
+      font-size: .84rem;
+      line-height: 1.9;
+    }
+
+    .foot {
+      text-align: center;
+      color: var(--muted);
+      font-size: .82rem;
+      padding: 0 20px 28px;
+    }
+
+    .foot b { color: var(--purple); }
+
+    .projector .hero h1 { font-size: clamp(3rem, 7vw, 6rem); }
+    .projector .layout { grid-template-columns: 1fr; }
+    .projector .composer { display: none; }
+    .projector main { max-width: 1250px; }
+    .projector .feed { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .projector .entry { padding: 24px; }
+    .projector .entry-message { font-size: 1.18rem; }
+
+    @media (max-width: 760px) {
+      header { padding: 18px; }
+      .hero { padding: 20px 18px 35px; }
+      .layout { grid-template-columns: 1fr; }
+      main { padding: 0 14px 35px; }
+      .panel { padding: 19px; }
+      .projector .feed { grid-template-columns: 1fr; }
+      .entry-top { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+
+  <header>
+    <div class="brand">♡ <span>قلوبنا تتّسع</span></div>
+    <div class="pill">٩ نوفمبر · اليوم العالمي للاحتضان</div>
+  </header>
+
+  <section class="hero">
+    <span class="decor d1">✿</span>
+    <span class="decor d2">♡</span>
+    <span class="decor d3">✧</span>
+
+    <div class="eyebrow">🌷 مساحة للمحبة والأمل</div>
+    <h1>كل طفل يستحقّ <span class="accent">حضنًا دافئًا</span></h1>
+    <p>
+      في اليوم العالمي للاحتضان، نفتح مساحة صغيرة لكلمات كبيرة…
+      اكتبوا رسالة أمل، أو دعوة طيبة، أو كلمة من القلب.
+      فربما تصنع كلماتنا فرقًا أجمل مما نتخيّل.
+    </p>
+  </section>
+
+  <main>
+    <div class="layout">
+
+      <section class="panel composer">
+        <h2>💌 شاركونا كلماتكم</h2>
+        <p class="sub">كل مشاركة هي رسالة محبة تصل إلى القلوب.</p>
+
+        <form id="entryForm">
+          <label class="field" for="name">اسم الأسرة أو الاسم الذي تحبّون ظهوره</label>
+          <input id="name" maxlength="60" placeholder="مثال: أسرة الأمل" required>
+
+          <label class="field" for="message">رسالتكم</label>
+          <textarea id="message" maxlength="600" placeholder="اكتبوا كلماتكم الجميلة هنا…" required></textarea>
+
+          <button class="primary" type="submit">
+            أضيفوا رسالتنا إلى لوحة المحبة ♡
+          </button>
+        </form>
+
+        <p class="tiny">
+          بالضغط على الإرسال، ستظهر المشاركة مع الاسم والتاريخ والوقت.
+          يُفضّل عدم كتابة أرقام الجوال أو المعلومات الشخصية.
+        </p>
+
+        <div class="notice" role="status" aria-live="polite">
+          🌼 إلى كل أسرة فتحت قلبها قبل بيتها، وإلى كل أم وأب اختارا
+          أن يمنحا الحب والاحتواء دون حدود، شكرًا لأنكم تصنعون فرقًا
+          لا يُقاس بالكلمات، وتزرعون في القلوب الصغيرة أملًا يكبر معهم يومًا بعد يوم 💜
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="feed-head">
+          <div>
+            <h2>لوحة المحبة والأمل <span class="heart">♡</span></h2>
+            <p class="sub" style="margin:6px 0 0">كلمات تبقى… وأثر لا يُنسى.</p>
+          </div>
+
+          <div class="toolbar">
+            <span id="count" class="count">٠ مشاركة</span>
+            <button class="secondary" id="projectorBtn" type="button">⛶ وضع العرض</button>
+          </div>
+        </div>
+
+        <div id="feed" class="feed" aria-live="polite">
+          <div class="empty">
+            <span class="emoji">🕊️</span>
+            ما زالت اللوحة تنتظر أول رسالة…
+            <p>كونوا أول من يزرع فيها كلمة أمل.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="foot">
+    بالمحبة نصنع مساحة أوسع للجميع <b>♡</b> · ٩ نوفمبر
+  </footer>
+
+</div>
+
+<!-- مكتبة Supabase: يجب أن تسبق كود الاتصال بقاعدة البيانات -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = 'https://vwpcgyfpalysbjdziibs.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_n8UrUP_vbrXjVxUUyHo8HQ_Vb0Itl-L';
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const form = document.getElementById('entryForm');
+  const feed = document.getElementById('feed');
+  const count = document.getElementById('count');
+  const notice = document.querySelector('.notice');
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  const originalNotice = notice.innerHTML;
+  const colors = ['#e9a7bd', '#b5a3e2', '#a6d9c3', '#f1d28b', '#9fcfe0'];
+
+  function arNum(number) {
+    return new Intl.NumberFormat('ar-SA').format(number);
+  }
+
+  function renderMessages(items) {
+    count.textContent = arNum(items.length) + ' مشاركة';
+    feed.replaceChildren();
+
+    if (items.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+
+      const emoji = document.createElement('span');
+      emoji.className = 'emoji';
+      emoji.textContent = '🕊️';
+
+      const message = document.createElement('p');
+      message.textContent = 'كونوا أول من يزرع فيها كلمة أمل.';
+
+      empty.append(emoji, document.createTextNode('ما زالت اللوحة تنتظر أول رسالة…'), message);
+      feed.append(empty);
+      return;
+    }
+
+    items.forEach((item, index) => {
+      const card = document.createElement('article');
+      card.className = 'entry';
+      card.style.setProperty('--stripe', colors[index % colors.length]);
+
+      const top = document.createElement('div');
+      top.className = 'entry-top';
+
+      const name = document.createElement('div');
+      name.className = 'entry-name';
+      name.textContent = '♡ ' + item.family_name;
+
+      const time = document.createElement('time');
+      time.className = 'entry-time';
+
+      const date = new Date(item.created_at);
+      time.dateTime = date.toISOString();
+      time.textContent = new Intl.DateTimeFormat('ar-SA', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Riyadh'
+      }).format(date);
+
+      top.append(name, time);
+
+      const message = document.createElement('p');
+      message.className = 'entry-message';
+      message.textContent = item.message;
+
+      card.append(top, message);
+      feed.append(card);
+    });
+  }
+
+  async function loadMessages() {
+    const { data, error } = await db
+      .from('messages')
+      .select('id, family_name, message, created_at')
+      .order('created_at', { ascending: false })
+      .limit(500);
+
+    if (error) {
+      console.error('Supabase load error:', error);
+      notice.textContent =
+        'تعذّر تحميل الرسائل. تحققي من اتصال الإنترنت وإعدادات Supabase.';
+      return;
+    }
+
+    notice.innerHTML = originalNotice;
+    renderMessages(data || []);
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !message) {
+      alert('فضلاً اكتبي اسم الأسرة والرسالة.');
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'جارٍ إرسال رسالتكم…';
+
+    try {
+      const { error } = await db.from('messages').insert({
+        family_name: name,
+        message: message
+      });
+
+      if (error) {
+        console.error('Supabase insert error:', error);
+        alert('تعذّر إرسال الرسالة. تحققي من الاتصال وإعدادات قاعدة البيانات.');
+        return;
+      }
+
+      form.reset();
+      await loadMessages();
+      alert('وصلت رسالتكم إلى لوحة المحبة، شكرًا لكم 💜');
+
+    } catch (error) {
+      console.error(error);
+      alert('حدث خطأ في الاتصال. حاولي مرة أخرى.');
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'أضيفوا رسالتنا إلى لوحة المحبة ♡';
+    }
+  });
+
+  document.getElementById('projectorBtn').addEventListener('click', async () => {
+    document.body.classList.toggle('projector');
+
+    const active = document.body.classList.contains('projector');
+    const button = document.getElementById('projectorBtn');
+
+    button.textContent = active
+      ? '↙ خروج من وضع العرض'
+      : '⛶ وضع العرض';
+
+    try {
+      if (active && document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+      } else if (!active && document.fullscreenElement) {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.log('تعذّر تغيير وضع ملء الشاشة:', error);
+    }
+  });
+
+  loadMessages();
+  setInterval(loadMessages, 15000);
+</script>
+
+</body>
+</html>
